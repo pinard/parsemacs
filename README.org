@@ -1,0 +1,58 @@
+#+TITLE: parsemacs — Emacs Lisp parser (temporary)
+#+OPTIONS: H:2
+This *parsemacs* project is exploratory, and temporary.  It contains the
+skeleton of an Emacs Lisp parser written in Python, and is meant to be
+included in another project once ready.
+
+For a good while now, I've written many ad hoc Python scripts for
+reading Org files (Org is a [[http://orgmode.org/][wonderful tool]] available as an Emacs
+mode).  Org version 8.0 introduces a so-called /new exporter/, in which
+the way to parse an Org file has been standardized.  Previously, each
+exporter used its own Org file parser, and exporters were not all
+agreeing on how to /understand/ an Org file.  In the new scheme, all
+exporters have been rewritten to use a common parser, and the Org
+format has also been documented more precisely.
+
+However, the parser is written in Emacs Lisp, while my applications
+are usually written in Python, and I've been pondering the idea of
+writing a Python parser which would be as close as possible with the
+genuine, Emacs Lisp parser which comes with Org 8.0.  On the evening
+of [2013-04-25 jeu], I enjoyed a sympathetic [[https://www.facebook.com/photo.php?fbid%3D10151620237095148&set%3Da.10151620233810148.1073741825.565210147&type%3D1&ref%3Dnotif&notif_t%3Dlike_tagged&theater][Python coding fiesta]], and
+decided to use that evening to explore what it would mean to write
+that Org format Python parser.
+
+I've been rather surprised by the richness and volume of [[http://orgmode.org/worg/dev/org-export-reference.html][the
+specification]], and quickly understood it is not going to be a simple
+job to do correctly.  Even a straightforward Emacs Lisp to Python
+rewriting of the parser is more daunting that I roughly estimated.
+
+One of the participants suggested that I implement a very small subset
+of the specification and complete it incrementally as the need arises,
+but if I take that route, it would surely take forever to complete.
+Another problem is that the Emacs Lisp parser surely may be amended
+and corrected: it might be difficult to really follow that evolution.
+
+Thinking around these problems, it came to my mind that I should
+humbly take lessons from how Pascal TeX was translated to C, long ago.
+That is: some tool does the translation mechanically, yet with limited
+cleverness, with some mechanism to replace or amend sections with
+human-crafted translation, whenever the automatic translation falls
+short of working correctly, for speed or algorithmic considerations,
+or otherwise.  For my actual need, the tool would read Emacs Lisp and
+produce Python code.
+
+This *parsemacs* project is just an exploratory step about reading Emacs
+Lisp from within Python.  I'm not much trying to make it overly
+general, as the parser is surely going to be adapted to the specific
+needs described above, when they will get more precise.  Yet, as it
+stands, it can read all of Emacs 23, and the development versions of
+Gnus and Org mode, save for Lisp files encoded with /euc-japan/ or
+/iso-2022-7bit/ (I do not know how to decipher these from Python).
+
+Moreover, Org mode is intimately tied to Emacs Lisp at many places, so
+maybe *parsemacs* may get other uses as well, later in the project.
+
+François
+
+P.S. I should also mention the [[http://members.optusnet.com.au/~charles57/GTD/orgnode.html][Orgnode project]], which is a bit less
+attractive to me, as it is not currently based on the new exporter.
