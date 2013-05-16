@@ -17,7 +17,7 @@ However, the parser is written in Emacs Lisp, while my applications
 are usually written in Python, and I've been pondering the idea of
 writing a Python parser which would be as close as possible with the
 genuine, Emacs Lisp parser which comes with Org 8.0.  On the evening
-of [2013-04-25 jeu], I enjoyed a sympathetic [[https://www.facebook.com/photo.php?fbid%3D10151620237095148&set%3Da.10151620233810148.1073741825.565210147&type%3D1&ref%3Dnotif&notif_t%3Dlike_tagged&theater][Python coding fiesta]], and
+of [2013-04-25 jeu], I enjoyed a sympathetic [[https://www.facebook.com/photo.php?fbid%3D10151620237095148&set%3Da.10151620233810148.1073741825.565210147][Python coding fiesta]], and
 decided to use that evening to explore what it would mean to write
 that Org format Python parser.
 

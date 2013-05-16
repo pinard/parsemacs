@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """\
-Emacs Lisp reader — Lexer.
+Emacs Lisp reader.
 """
 
 import heapq
