@@ -4,6 +4,8 @@ This *parsemacs* project is exploratory, and temporary.  It contains the
 skeleton of an Emacs Lisp parser written in Python, and is meant to be
 included in another project once ready.
 
+** Description
+
 For a good while now, I've written many ad hoc Python scripts for
 reading Org files (Org is a [[http://orgmode.org/][wonderful tool]] available as an Emacs
 mode).  Org version 8.0 introduces a so-called /new exporter/, in which
@@ -56,3 +58,61 @@ François
 
 P.S. I should also mention the [[http://members.optusnet.com.au/~charles57/GTD/orgnode.html][Orgnode project]], which is a bit less
 attractive to me, as it is not currently based on the new exporter.
+
+** Exchange with Karl Voit on [2014-01-06 lun]
+
+> I did not get the impression that [ply] is a parsing engine that is
+> done the Python way.
+
+PLY has pros and cons.  SPARK[1] always attracted me as being more
+elegant.  While it accepts a wider set of grammars than PLY, SPARK can
+become quite slow on grammars which are less "natural" (admittedly a
+very fuzzy, subjective term).  For simpler grammars, recursive descent
+does the job at good enough speed, and often, grammars can be
+rearranged a bit so the lexer could cleverly help the parser.  Of
+course, it looks like more work writing a recursive descent parser,
+yet many times in my experience, the programmer is amply repaid with
+simplicity and clarity.
+
+>> You don't need a Lisp interpreter written in Python, only Python
+>> code that understands org syntax without getting confused.
+
+> if you are going to use a ELISP interpreter to parse Org-mode syntax
+> for Python, this should completely re-use the original Org-parser
+> and nothing else.  I have no idea if this is possible or not.  If
+> you have to implement a parser on your own, you probably should
+> stick to Python-only.
+
+Hey hey, it's fun! :-) You misunderstood me, but this is constructive
+actually, as you raise good points.  In my dreams, a pure Python
+parser parses Org mode files.  However, here and there in the parsed
+files, as data, we can see bits of Emacs Lisp code, or even Calc
+syntax at some places.  That Emacs Lisp code could be mere constants
+or identifiers, but sometimes more complex, evalable S-expressions.
+
+A parser is probably of limited use if it does not come with some
+extra-tools covering most frequent use cases around the syntax, and I
+guess that pressure will develop to have some kind of Emacs Lisp
+interpreter, hardly complete, probably only mild or even ridiculous.
+
+The interesting idea in your comments is that, *if* we had an Emacs Lisp
+interpreter of serious quality, that interpreter could use "the
+original Org-parser and nothing else".  That would solve maintenance,
+as the parser would be wholly external, to be found in Org mode
+distribution, all standard.  But this avenue is quite unlikely: it
+looks like a major undertaking to me, and while such a parser would be
+useful on small data excerpts within an Org file, it might be
+inordinately slow if it had to interpret a lot of Lisp code while
+deciphering big Org files.
+
+Worse, keeping a Python parser in sync with the true Emacs Lisp parser
+would require much energy, maybe only once in a while, but extended
+over a long period of time.  Unless a great enthusiasm exists,
+distributed on many people, such projects are always doomed to fail.
+Not many people are ready to commit themselves for life in the
+required maintenance.
+
+François
+
+---------------
+[1] http://pages.cpsc.ucalgary.ca/~aycock/spark/
